@@ -1,10 +1,9 @@
-from turtle import clear
 from flask_sqlalchemy import SQLAlchemy
-from ..app import db
-from flask_migrate import Migrate
-from .main.main import main_blueprint
+from . import db
+# from flask_migrate import Migrate
+# from .main import main_blueprint
 
-db = SQLAlchemy
+# db = SQLAlchemy
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
