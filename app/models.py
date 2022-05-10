@@ -47,12 +47,19 @@ class User(UserMixin,db.Model):
 
 
 class Role(db.Model):
+    """
+    defines different roles
+    """
+    
     __tablename__ = 'roles'
 
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(255))
     users = db.relationship('User',backref = 'role',lazy="dynamic")
 
+
+    # Lazy parameter is how SQLAlchemy will load the project
+    
 
     def __repr__(self):
         return f'User {self.name}'
