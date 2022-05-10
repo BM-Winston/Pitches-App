@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SQLALCHEMY_DATABASE_URI =
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://pitches:Access@localhost/Pitches-App'
 
 
 
