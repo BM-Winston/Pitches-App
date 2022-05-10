@@ -1,6 +1,6 @@
-from flask_wtf import Flaskform
-from wtform import TextAreaField, StringField, SubmitField
-from wtforms import validators
+from flask_wtf import FlaskForm
+from wtforms import TextAreaField, StringField, SubmitField
+from wtforms import validators 
 
 
 class UpdateProfile(FlaskForm):
