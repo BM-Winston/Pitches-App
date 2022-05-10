@@ -10,6 +10,9 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
 
+    role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+
+
     def __repr__(self):
         return f'User {self.username}'
 
