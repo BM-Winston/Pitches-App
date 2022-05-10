@@ -11,6 +11,8 @@ class User(db.Model):
     name = db.Column(db.String, unique=True)
 
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+    users = db.relationship('User',backref = 'role',lazy="dynamic")
+
 
 
     def __repr__(self):
