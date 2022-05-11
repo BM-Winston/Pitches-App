@@ -1,0 +1,8 @@
+{% macro displayComments(comment_list) %}
+{% for comment in comment_list %}
+<div class="comment-card">
+    <h2> <a href="{{url_for('main.single_comment',id=comment.id)}}">{{comment.pitch_context}}</a> </h2>
+</div>
+{% endfor %}
+
+{% endmacro %}
