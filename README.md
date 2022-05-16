@@ -4,7 +4,7 @@
 
 
 ##### By Winston Musasia 
-### It is an app that enables user to utilise one minute of pitches carefully. 
+### It is an app that enables user to utilise one minute of pitches wisely. 
 
 ## Table of Content
 

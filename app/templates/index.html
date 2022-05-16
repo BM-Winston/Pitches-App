@@ -1,16 +1,17 @@
 {% extends 'bootstrap/base.html'%}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     {% if title %}
     <title> {{ title }}</title>
     {% else %}
     <title>Pitches App</title>
     {% endif %}
     {% block styles%}
-    {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+        {{ super() }}
+    
+    
     {% endblock %}
 </head>
 <header>
@@ -18,16 +19,88 @@
     {% include 'navbar.html' %}
     {% endblock %}
 </header>
-
+{%block content%}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/styles.css') }}">
 <body>
 
- {%block content%}
 
-
+<style>
+    body {
+        background-color: powderblue;
+        /* background-image: url(stat); */
+    }
+</style>
  
+
+
+
+
+<div class="container-fluid">
+
+    <div class="card-body">
+        <div class="col-md-6">
+            <h2 style="color: green;">Pitches For You</h2>
+            <h3 class="card-title"><strong><u>Pick-up Line</u></strong></h3>
+            <p class="card-text">The best is yet to come</p>
+            <p class="card-text">Posted By:<strong>Rodri</strong></p>
+        
+            <h3 class="card-title"><strong><u>Interview</u></strong></h3>
+                <p class="card-text">At the end of every interview, you should say “thank you” before you even say “goodbye"</p>
+                <p class="card-text">Posted By:<strong>Alexia</strong></p>
+
+            <h3 class="card-title"><strong><u>Product</u></strong></h3>
+            <p class="card-text">Try BigN. The ultimate drone.</p>
+            <p class="card-text">Posted By:<strong>Salamaekers</strong></p>
+
+            <h3 id="promo" class="card-title"><strong><u>Promotion</u></strong></h3>
+            <p class="card-text">For the best insurance services. Register today to the CLassic Incurance.</p>
+            <p class="card-text">Posted By:<strong>Ndung'u</strong></p>
+
+            <h3 class="card-title"><strong><u>Music</u></strong></h3>
+            <p class="card-text">Find must have playlist in my spotify podcast.</p>
+            <p class="card-text">Posted By:<strong> Gary Taphouse</strong></p>
+
+            <h3 class="card-title"><strong><u>Sports</u></strong></h3>
+            <p class="card-text">Bend it like Beckham</p>
+            <p class="card-text">Posted By:<strong>Victoria</strong></p>
+
+        
+    </div>
+  
+
+
+    <h2 style = "color: green;"class="text-center"><u>Make your favourite pitch</u></h2>
+    <a href="/create_new">Create New Pitch</a>
+    <div class="row">
+        <div class="col-md-6">
+            {% for pitch in pitches %}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Category : {{ pitches.category }}</h3>
+                    <p class="card-text">Pitch : {{ pitch.context }}</h4>
+                    <p class="card-text">Posted by : {{users.username}}</p>
+                    <a class=" btn btn-info" href="{{ url_for('main.new_comment', pitch_id = pitch.id)}}">Comment</a>
+                    <a class=" btn btn-info"
+                        href="{{url_for('main.like',id = pitch.id)}}">Upvotes:{{pitch.upvote.count()}}</a>
+                    <a class=" btn btn-danger"
+                        href="{{url_for('main.dislike',id = pitch.id)}}">Downvotes:{{pitch.downvote.count()}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+        {% endfor %}
+
+    
+
 
     
     
 </body>
+
 {%endblock%}
+
 </html>

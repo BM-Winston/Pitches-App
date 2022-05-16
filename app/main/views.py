@@ -1,10 +1,10 @@
 from . import main
 from flask import render_template
-from app import app
+
 from flask_login import login_required, current_user
 from flask import render_template,request,redirect,url_for,abort
 from ..models import User, Pitch, Comment, Role, Upvote, Downvote
-from .forms import ReviewForm,UpdateProfile,CommentForm
+from .forms import UpdateProfile,CommentForm, PitchForm
 from .. import db, photos
 import markdown2
 
@@ -70,14 +70,24 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
-@main.route('/pitch/comment/<int:pitch_id>')
+
+@main.route('/create_new',methods = ['GET','POST'])
 @login_required
-def single_comment(id):
-    comment = Pitch.query.get(id)
-    if comment is None:
-        abort(404)
-    format_comment = markdown2.markdown(comment.pitch_comment,extras=["code-friendly","fenced-code blocks"])
-    return render_template('comment.html',comment = comment,format_comment = format_comment)
+def new_pitch():
+    p_form = PitchForm()
+
+    if p_form.validate_on_submit():
+        category = p_form.category.data
+        context = p_form.context.data
+        new_pitch = Pitch(category=category,context=context)
+        
+        new_pitch.save_pitch()
+        return redirect(url_for('main.index'))
+    else:
+        all_pitches = Pitch.query.order_by(Pitch.posted).all
+
+    return render_template('pitch.html',p_form = p_form,pitches=all_pitches)
+
 
 
 @main.route('/comment/<int:pitch_id>', methods = ['GET','POST'])
@@ -98,3 +108,55 @@ def new_comment(pitch_id):
         new_comment.save_comment()
         return redirect(url_for('.new_comment',pitch_id = pitch_id))
     return render_template('new_comment.html',pitch=pitch,all_comments=all_comments,comment_form=form)
+
+
+
+@main.route('/pitch/comment/<int:pitch_id>')
+@login_required
+def single_comment(id):
+    comment = Pitch.query.get(id)
+    if comment is None:
+        abort(404)
+    format_comment = markdown2.markdown(comment.pitch_comment,extras=["code-friendly","fenced-code blocks"])
+    return render_template('comment.html',comment = comment,format_comment = format_comment)
+
+
+@main.route('/like/<int:id>', methods=['GET', 'POST'])
+@login_required
+def like(id):
+    pitch = Pitch.query.get(id)
+    if pitch is None:
+        abort(404)
+    like = Upvote.query.filter_by(user_id=current_user.id, pitch_id=id).first()
+    if like is not None:
+        db.session.delete(like)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    new_like = Upvote(user_id=current_user.id,pitch_id=id)
+    db.session.add(new_like)
+    db.session.commit()
+    return redirect(url_for('main.index'))
+
+
+@main.route('/dislike/<int:id>', methods=['GET', 'POST'])
+@login_required
+def dislike(id):
+    pitch = Pitch.query.get(id)
+    if pitch is None:
+        abort(404)
+    
+    dislike = Downvote.query.filter_by(user_id=current_user.id, pitch_id=id).first()
+    
+    if dislike is not None:   
+        db.session.delete(dislike)
+        db.session.commit()
+        return redirect(url_for('.index'))
+
+    new_dislike = Downvote(user_id=current_user.id,pitch_id=id)
+    db.session.add(new_dislike)
+    db.session.commit()
+    return redirect(url_for('.index'))
+        
+
+
+

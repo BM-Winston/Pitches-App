@@ -1,9 +1,8 @@
-from . import db
 from . import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
-from datetime import datetime
+from sqlalchemy import text
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -21,6 +20,9 @@ class User(UserMixin,db.Model):
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     bio = db.Column(db.String(255))
     password_secure = db.Column(db.String(255))
+    upvote_id = db.relationship('Upvote', backref = 'user', lazy = 'dynamic')
+    downvote_id = db.relationship('Downvote', backref = 'user', lazy = 'dynamic')
+
 
 
     @property
@@ -70,12 +72,12 @@ class Pitch(db.Model):
     __tablename__ = 'pitches'
 
     id = db.Column(db.Integer,primary_key=True)
-    content = db.Column(db.String())
+    context = db.Column(db.String())
     category = db.Column(db.String())
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     upvote = db.relationship('Upvote',backref='post',lazy='dynamic')
-    downvote = db.relationship('Downvote',backref='post',lazy='dynamic')
-    comment = db.relationship('Comment',backref='post',lazy='dynamic')
+    downvote = db.relationship('Downvote',backref='pitch',lazy='dynamic')
+    comment = db.relationship('Comment',backref='pitch',lazy='dynamic')
 
     def save_pitch(self):
         db.session.add(self)
@@ -112,6 +114,8 @@ class Upvote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+  
+
 
     def save(self):
         db.session.add(self)
@@ -133,6 +137,8 @@ class Downvote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    
+
 
     def save(self):
         db.session.add(self)
@@ -147,16 +153,4 @@ class Downvote(db.Model):
         return f'{self.user_id}:{self.pitch_id}'
 
 
-
-
     
-
-
-
-
-
-
-
-    upvote = db.relationship('Upvote',backref='post',lazy='dynamic')
-    downvote = db.relationship('Downvote',backref='post',lazy='dynamic')
-    comment = db.relationship('Comment',backref='post',lazy='dynamic')
