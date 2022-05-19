@@ -1,6 +1,5 @@
 from . import main
 from flask import render_template
-
 from flask_login import login_required, current_user
 from flask import render_template,request,redirect,url_for,abort
 from ..models import User, Pitch, Comment, Role, Upvote, Downvote

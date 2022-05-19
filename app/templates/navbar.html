@@ -1,27 +1,22 @@
 
-<!-- navbar-dark bg-dark"></nav> -->
-<div class="card text-center">
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs .g">
-            <li class="nav-item">
-                <button class="btn btn-info"><a class="nav-link active" aria-current="true" href="/">Home</a></button>
-            </li>
-            {% if current_user.is_authenticated %}
-            <li><button class="btn btn-info">
-            <a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></button></li>
-            <li><button class="btn btn-info"><a href="{{url_for('auth.logout')}}">Sign Out</a></button></li>
-            <!-- <li><button class="btn btn-info"><a href="{{url_for('main.new_pitch')}}">Post you pitch</a></button></li> -->
-            {% else %}
-            <li><a href="{{url_for('auth.login')}}">Sign In</a></li>
-            
-            {%endif%}
-        </ul>
 
-    </div>
-   
-    <div class="card-body">
-        <h1 style="color:green;" class="card-title"><strong>Pitches App</strong></h1>
-        <p><i>Welcome to Pitch App where you have one minute to wisely make a statement!</i></p>
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"> Pitches App</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+                <li><a href="{{url_for('auth.signup')}}">Sign Up</a></li>
+        </div>
 
     </div>
 </div>

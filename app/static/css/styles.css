@@ -1,3 +1,6 @@
-.promo{
-    color: red;
+body{
+    background-image: url(../images/hugo-barbosa-TnG2q8FtXsg-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
