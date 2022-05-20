@@ -1,6 +1,7 @@
 {% extends 'bootstrap/base.html'%}
 <!DOCTYPE html>
-<html>
+
+
 <head>
     <meta charset="utf-8">
     {% if title %}
@@ -9,9 +10,9 @@
     <title>Pitches App</title>
     {% endif %}
     {% block styles%}
-        {{ super() }}
-    
-    
+    {{ super() }}
+
+
     {% endblock %}
 </head>
 <header>
@@ -21,79 +22,121 @@
 </header>
 {%block content%}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/styles.css') }}">
-<body>
+
+
 
 <div class="container">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">Music</h5>
-            <p class="card-text">As shocking as Eminem's lyrics are, the details of his personal life are just as surprising. From a traumatic experience
-            as a kid to the unbelievable rise through rap's underground, Eminem jumped from the amateurs to the pros like few
-            others. But along the way, the rapper struggled with the pressures of fame, both personally and against other musicians.
-            This is the untold truth of Eminem.
-            
-            </p>
-            <a href="#" class="btn btn-primary">Marshal Mathers</a>
-        </div>
-    </div>
-</div>
-<div class="container">
-
-    <div class="card" style="width: 40rem;">
-        <div class="card-body">
-        <h5 class="card-title">Interview</h5>
-        <p class="card-text">The candidate interview is a vital component of the hiring process. To hire the most qualified candidates, human
-        resource professionals and hiring managers must be well informed on how to conduct interviews effectively. This article
-        provides an overview of various interviewing methods, both structured and unstructured. It discusses the most widely
-        used types of interviewing—telephone prescreen, direct one-on-one and panel interviews—and explains the objectives and
-        techniques of behavioral, competency-based and situational approaches to interviewing.</p>
-        <a href="#" class="btn btn-primary">Carlos</a>
-        </div>
-    </div>
-</div>
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-        <h5 class="card-title">Product</h5>
-        <p class="card-text">Experience designers are told to follow standard opertaing proceduresand customerswith programmed responses</p>
-        <a href="#" class="btn btn-primary">Kelleher</a>
-        </div>
-    </div>
-</div>
-  
-
-
-    <h2 style = "color: green;"class="text-center"><u>Make your favourite pitch</u></h2>
-    <a href="/create_new">Create New Pitch</a>
     <div class="row">
         <div class="col-md-6">
-            {% for pitch in pitches %}
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Category : {{ pitches.category }}</h3>
-                    <p class="card-text">Pitch : {{ pitch.context }}</h4>
-                    <p class="card-text">Posted by : {{users.username}}</p>
-                    <a class=" btn btn-info" href="{{ url_for('main.new_comment', pitch_id = pitch.id)}}">Comment</a>
-                    <a class=" btn btn-info"
+            <div class="panel" style="width: 40rem;">
+                <div class="panel-body">
+                    <h5 class="panel-title">Music</h5>
+                    <p class="panel-text">As shocking as Eminem's lyrics are, the details of his personal life are just
+                        as
+                        surprising. From a traumatic experience
+                        as a kid to the unbelievable rise through rap's underground, Eminem jumped from the amateurs to
+                        the
+                        pros like few
+                        others. But along the way, the rapper struggled with the pressures of fame, both personally and
+                        against other musicians.
+                        This is the untold truth of Eminem.
+
+                    </p>
+                    <a href="#" class="btn btn-primary">Marshal Mathers</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="panel" style="width: 60rem;">
+                <div class="panel-body">
+                    <h5 class="panel-title">Interview</h5>
+                    <p class="panel-text">The candidate interview is a vital component of the hiring process. To hire
+                        the
+                        most qualified candidates, human
+                        resource professionals and hiring managers must be well informed on how to conduct interviews
+                        effectively. This article
+                        provides an overview of various interviewing methods, both structured and unstructured. It
+                        discusses
+                        the most widely
+                        used types of interviewing—telephone prescreen, direct one-on-one and panel interviews—and
+                        explains
+                        the objectives and
+                        techniques of behavioral, competency-based and situational approaches to interviewing.</p>
+                    <a href="#" class="btn btn-primary">Carlos</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+    <div class="panel" style="width: 40rem;">
+        <div class="panel-body">
+            <h5 class="panel-title">Product</h5>
+            <p class="panel-text">Experience designers are told to follow standard opertaing proceduresand
+                customerswith programmed responses</p>
+            <a href="#" class="btn btn-primary">Kelleher</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container" align="center">
+    <h3 style="font-size: 4vh;">MAKE YOUR FAVOURITE PITCH HERE</h3>
+    <br>
+    
+    <a href="/create_new" class="btn btn-primary">Pitch Now</a>
+    <br>
+    <br>
+    <div class="row">
+        {% for pitch in pitches %}
+        <div class="col-md-4">
+            
+            <div class="panel">
+                <div class="panel-body">
+                    <h3 class="panel-title">Category : {{ pitches.category }}</h3>
+                    <p class="panel-text">Pitch : {{ pitch.context }}</h4>
+                    <p class="panel-text">Posted by : {{users.username}}</p>
+                    <a class=" btn btn-success" href="{{ url_for('main.new_comment', pitch_id = pitch.id)}}">Comment</a>
+                    <a class=" btn btn-primary"
                         href="{{url_for('main.like',id = pitch.id)}}">Upvotes:{{pitch.upvote.count()}}</a>
                     <a class=" btn btn-danger"
                         href="{{url_for('main.dislike',id = pitch.id)}}">Downvotes:{{pitch.downvote.count()}}</a>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
-</div>
+<br>
+<br>
+<br>
 
 
-        {% endfor %}
+<footer>
+    <h4 align="center">Winston Musasia (c) 2022</h4>
+</footer>
 
-    
 
 
-    
-    
-</body>
+
+
+
+
+
+
+
+
+
+
 
 {%endblock%}
-
-</html>
