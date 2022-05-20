@@ -95,10 +95,11 @@ class Comment(db.Model):
     pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     comment = db.Column(db.String(255))
+    
 
 
-    def save_comment(self,comment):
-        db.session.add(comment)
+    def save_comment(self):
+        db.session.add(self)
         db.session.commit()
 
     @classmethod

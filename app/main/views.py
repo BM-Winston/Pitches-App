@@ -96,12 +96,12 @@ def new_comment(pitch_id):
     pitch=Pitch.query.get(pitch_id)
     all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
     if form.validate_on_submit():
-        title = form.title.data
+        
         comment = form.comment.data
         pitch_id = pitch_id
         user_id = current_user._get_current_object().id
         # Updated comment instance
-        new_comment= Comment(title=title,pitch_comment=comment,user_id=user_id,pitch_id=pitch_id)
+        new_comment= Comment(comment=comment,user_id=user_id,pitch_id=pitch_id)
 
         # save review method
         new_comment.save_comment()

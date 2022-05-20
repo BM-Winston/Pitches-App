@@ -4,8 +4,14 @@
 {% block content %}
 <div class="container">
     <div class="col-md-4">
-        <h3> {{pitch.category}}</h3>
-        <p>{{pitch.context}}</p>
+        {%for comment in all_comments%}
+        <div class="comment-card">
+            <h2 style="color:brown">{{comment.comment}}
+            </h2>
+        </div>
+        
+        {%endfor%}
+
     </div>
     <div class="col-sm-4">
         {{ wtf.quick_form(comment_form) }}

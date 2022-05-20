@@ -8,17 +8,22 @@ body{
 h5{
     font-weight: 700;
     font-size: 4vh;
+    text-shadow: 0.5px 0.5px 0.5px #FFF;
 
+}
+
+h3{
+    text-shadow: 0.5px 0.5px 0.5px #FFF ;
 }
 .pitch{
     font-size: 17vh;
     color: red;
-font-weight:bolder ;
+    font-weight:bolder ;
 }
 
 .panel-title{
     font-style: italic;
-    color: brown;
+    color: white;
 }
 
 .panel{

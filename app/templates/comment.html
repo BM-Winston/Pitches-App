@@ -1,12 +1,19 @@
 {%extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf %}
-{% import 'macros.html' as macro %}
+<!-- {% import 'macros.html' as macro %} -->
+
 {% block content%}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/styles.css') }}">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-4">
-            {{pitch.category}}
+            {%for all_comments%}
+            <div class="comment-card">
+                <h2 style="color:greenyellow">{{comment.comment}}
+                </h2>
+            </div>
+
+            {%endfor%}
 
         </div>
         <div class="col-sm-6">

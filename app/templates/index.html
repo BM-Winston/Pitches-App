@@ -103,7 +103,7 @@
             
             <div class="panel">
                 <div class="panel-body">
-                    <h3 class="panel-title">Category : {{ pitches.category }}</h3>
+                    <h3 class="panel-title">Category : {{ pitch.category }}</h3>
                     <p class="panel-text">Pitch : {{ pitch.context }}</h4>
                     <p class="panel-text">Posted by : {{users.username}}</p>
                     <a class=" btn btn-success" href="{{ url_for('main.new_comment', pitch_id = pitch.id)}}">Comment</a>
